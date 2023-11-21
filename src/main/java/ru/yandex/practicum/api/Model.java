@@ -1,24 +1,31 @@
-package ru.yandex.practicum.Api;
+package ru.yandex.practicum.api;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
 
 public class Model {
-    private final Object OBJECT;
+    private RegisterUserApi registerUserApi;
+    private AuthUserApi authUserApi;
 
-    public Model(Object OBJECT) {
-        this.OBJECT = OBJECT;
+    public Model(RegisterUserApi registerUserApi) {
+        this.registerUserApi = registerUserApi;
     }
 
-    final String REGISTER_USER = "auth/register";
-    final String AUTH_USER ="auth/login";
-    final String EDIT_USER = "auth/user";
+    public Model(AuthUserApi authUserApi) {
+        this.authUserApi = authUserApi;
+    }
 
+                        /*** Эндпоинты ***/
+    private static final String REGISTER_USER = "auth/register";
+    private static final String AUTH_USER ="auth/login";
+    private static final String EDIT_USER = "auth/user";
+
+                        /*** Шаги ***/
     @Step("Отправить запрос на регистрацию пользователя")
     public void sendPostRegister() {
         given()
                 .header("Content-type", "application/json")
-                .body(OBJECT)
+                .body(registerUserApi)
                 .when()
                 .post(REGISTER_USER);
     }
@@ -26,7 +33,7 @@ public class Model {
     public Response sendPostAuth() {
         return  given()
                 .header("Content-type", "application/json")
-                .body(OBJECT)
+                .body(authUserApi)
                 .when()
                 .post(AUTH_USER);
     }

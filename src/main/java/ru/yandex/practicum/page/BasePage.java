@@ -1,4 +1,4 @@
-package ru.yandex.practicum.Page;
+package ru.yandex.practicum.page;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,26 +8,26 @@ import ru.yandex.practicum.EnvConfig;
 import java.time.Duration;
 
 public class BasePage {
-    private final WebDriver DRIVER;
+    private final WebDriver driver;
 
     public BasePage (WebDriver driver) {
-        this.DRIVER = driver;
+        this.driver = driver;
     }
 
     /*---------------------------------- МЕТОДЫ -----------------------------------*/
 
-    public WebDriver getDRIVER() {
-        return DRIVER;
+    public WebDriver getDriver() {
+        return driver;
     }
 
     @Step("Ожидание прогрузки элементов")
     public void waitingFor(By by) {
-        new WebDriverWait(DRIVER, Duration.ofSeconds(EnvConfig.DEFAULT_TIMEOUT))
+        new WebDriverWait(driver, Duration.ofSeconds(EnvConfig.DEFAULT_TIMEOUT))
                 .until(ExpectedConditions.elementToBeClickable(by));
     }
 
     @Step("Переход на сайт")
     public void openDriver(String url) {
-        DRIVER.get(url);
+        driver.get(url);
     }
 }

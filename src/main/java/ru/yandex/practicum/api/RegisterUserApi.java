@@ -1,4 +1,4 @@
-package ru.yandex.practicum.Api;
+package ru.yandex.practicum.api;
 
 public class RegisterUserApi {
     private String name;
